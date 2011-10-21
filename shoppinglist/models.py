@@ -6,6 +6,12 @@ LEVEL_CHOICES = {
         'F': 'Full',
     }
 
+VOTE_CHOICES = {
+        -1: '-1',
+        0: '',
+        1: '+1',
+    }
+
 class Ingredient(models.Model):
     name = models.CharField(max_length=1024)
     level = models.CharField(max_length=1, choices=LEVEL_CHOICES.items())
@@ -31,3 +37,9 @@ class List(models.Model):
 
 class Item(models.Model):
     ingredient = models.ForeignKey(Ingredient)
+
+
+class Vote(models.Model):
+    item = models.ForeignKey(Item, related_name='votes')
+    user = models.ForeignKey('auth.User', related_name='votes')
+    vote = models.IntegerField(choices=VOTE_CHOICES.items())
