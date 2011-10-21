@@ -22,3 +22,12 @@ class Purchase(models.Model):
 
 	def __unicode__(self):
 		return '%s purchased by %s' % (self.ingredient, self.purchaser)
+
+
+class List(models.Model):
+    name = models.CharField(max_length=1024)
+    created = models.DateTimeField(auto_add_now=True)
+
+
+class Item(models.Model):
+    ingredient = models.ForeignKey(Ingredient)
